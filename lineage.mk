@@ -1,24 +1,24 @@
 ## Specify phone tech before including full_phone
 
 # Release name
-PRODUCT_RELEASE_NAME := X556
+PRODUCT_RELEASE_NAME := heart
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit device configuration
-$(call inherit-product, device/Infinix/X556/device_X556.mk)
+$(call inherit-product, device/nokia/heart/device.mk)
 
 TARGET_SCREEN_HEIGHT := 1280
 TARGET_SCREEN_WIDTH := 720
 DEVICE_RESOLUTION := 720x1280
 
 # Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := X556
-PRODUCT_NAME := lineage_X556
-PRODUCT_BRAND := Infinix
-PRODUCT_MANUFACTURER := Infinix
-PRODUCT_MODEL := Infinix HOT 4 Pro
+PRODUCT_DEVICE := heart
+PRODUCT_NAME := lineage_heart
+PRODUCT_BRAND := Nokia
+PRODUCT_MANUFACTURER := Nokia
+PRODUCT_MODEL := Nokia 3
 
 PRODUCT_GMS_CLIENTID_BASE := android-google
 

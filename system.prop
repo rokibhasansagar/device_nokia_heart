@@ -1,5 +1,5 @@
 #
-# system.prop for Infinix HOT 4 Pro
+# system.prop for Nokia 3
 #
 ro.hardware=mt6735
 ro.board.platform=mt6737m

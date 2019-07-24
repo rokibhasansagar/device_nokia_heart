@@ -1,6 +1,5 @@
 # inherit from the proprietary version
--include vendor/Infinix/X556/BoardConfigVendor.mk
-
+-include vendor/nokia/heart/BoardConfigVendor.mk
 
 # Hack for build
 $(shell mkdir -p $(OUT)/obj/KERNEL_OBJ/usr)
@@ -8,8 +7,6 @@ $(shell mkdir -p $(OUT)/obj/KERNEL_OBJ/usr)
 # Build with NINJA
 USE_NINJA := true
 
-# Architecture
-# FORCE_32_BIT := true
 
 # Platform
 TARGET_BOARD_PLATFORM := mt6737m
@@ -19,13 +16,6 @@ BLOCK_BASED_OTA := true
 MTK_K64_SUPPORT = yes
 
 # Architecture
-ifeq ($(FORCE_32_BIT),true)
-TARGET_ARCH := arm
-TARGET_ARCH_VARIANT := armv7-a-neon
-TARGET_CPU_ABI := armeabi-v7a
-TARGET_CPU_ABI2 := armeabi
-TARGET_CPU_VARIANT := cortex-a53
-else
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
@@ -41,7 +31,6 @@ TARGET_2ND_CPU_VARIANT := cortex-a53
 TARGET_CPU_ABI_LIST_64_BIT := $(TARGET_CPU_ABI)
 TARGET_CPU_ABI_LIST_32_BIT := $(TARGET_2ND_CPU_ABI),$(TARGET_2ND_CPU_ABI2)
 TARGET_CPU_ABI_LIST := $(TARGET_CPU_ABI_LIST_64_BIT),$(TARGET_CPU_ABI_LIST_32_BIT)
-endif
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := mt6737m
@@ -52,25 +41,17 @@ BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 
 # Kernel
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
-TARGET_KERNEL_SOURCE := kernel/Infinix/X556
+TARGET_KERNEL_SOURCE := kernel/nokia/heart
 BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_OFFSET := 0x04000000
 BOARD_TAGS_OFFSET := 0xE000000
-ifeq ($(FORCE_32_BIT),true)
-ARCH := arm
-TARGET_KERNEL_ARCH := arm
-TARGET_KERNEL_CONFIG := rlk6737m_open_n_defconfig
-BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive androidboot.selinux=disabled 
-BOARD_KERNEL_OFFSET := 0x00008000
-else
 TARGET_KERNEL_ARCH := arm64
-TARGET_KERNEL_CONFIG := rlk6737m_open_n_defconfig
+TARGET_KERNEL_CONFIG := fih6737m_65_e1_n1_defconfig
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive androidboot.selinux=disabled 
 BOARD_KERNEL_OFFSET = 0x00080000
 TARGET_USES_64_BIT_BINDER := true
-endif
 BOARD_MKBOOTIMG_ARGS := --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET)
 
 # make_ext4fs requires numbers in dec format
@@ -83,7 +64,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_KMODULES := true
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := Infinix,X556,Infinix HOT 4 Pro,X556H371
+TARGET_OTA_ASSERT_DEVICE := Nokia 3,heart,Heart,NE1,TA-1032,TA-1020,TA-1028,TA-1038
 
 # Disable memcpy opt (for audio libraries)
 TARGET_CPU_MEMCPY_OPT_DISABLE := true
@@ -91,18 +72,14 @@ TARGET_CPU_MEMCPY_OPT_DISABLE := true
 # Flags
 BOARD_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 BOARD_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
-#BOARD_GLOBAL_CFLAGS += -DMTK_HARDWARE
-#BOARD_GLOBAL_CPPFLAGS += -DMTK_HARDWARE
-
 
 # Display
-BOARD_EGL_CFG := /vendor/Infinix/X556/vendor/lib/egl/egl.cfg
+BOARD_EGL_CFG := /vendor/nokia/heart/vendor/lib/egl/egl.cfg
 USE_OPENGL_RENDERER:=true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 PRESENT_TIME_OFFSET_FROM_VSYNC_NS := 0
-#MAX_VIRTUAL_DISPLAY_DIMENSION := 1
 MTK_HWC_SUPPORT := yes
 MTK_HWC_VERSION := 1.4.1
 MTK_GPU_VERSION := mali midgard r12p1
@@ -110,14 +87,12 @@ OVERRIDE_RS_DRIVER := libRSDriver_mtk.so
 
 # Mediatek support
 BOARD_USES_MTK_HARDWARE:=true
-#DISABLE_ASHMEM_TRACKING := true
 
 # Camera
 USE_CAMERA_STUB := true
 
 # Boot animation
 TARGET_BOOTANIMATION_MULTITHREAD_DECODE := true
-#TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
 # Audio
 BOARD_USES_MTK_AUDIO := true
@@ -127,7 +102,7 @@ TARGET_PROVIDES_INIT_RC := true
 
 # CMHW
 BOARD_USES_CYANOGEN_HARDWARE := true
-BOARD_HARDWARE_CLASS := device/Infinix/X556/cmhw
+BOARD_HARDWARE_CLASS := device/nokia/heart/cmhw
 
 # Fix video autoscaling on old OMX decoders
 TARGET_OMX_LEGACY_RESCALING := true
@@ -136,7 +111,7 @@ TARGET_OMX_LEGACY_RESCALING := true
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
 # RIL
-BOARD_RIL_CLASS := ../../../device/Infinix/X556/ril/
+BOARD_RIL_CLASS := ../../../device/nokia/heart/ril/
 
 # GPS
 BOARD_GPS_LIBRARIES :=true
@@ -160,7 +135,6 @@ WIFI_DRIVER_STATE_OFF := 0
 
 # Enable Minikin text layout engine (will be the default soon)
 USE_MINIKIN := true
-#MALLOC_IMPL := dlmalloc
 
 # Charger
 BOARD_CHARGER_SHOW_PERCENTAGE := true
@@ -170,15 +144,12 @@ EXTENDED_FONT_FOOTPRINT := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
-#BOARD_HAVE_BLUETOOTH_MTK := true
-#BOARD_BLUETOOTH_DOES_NOT_USE_RFKILL := true
-#BOARD_BLUETOOTH_BDROID_HCILP_INCLUDED := 0
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/Infinix/X556/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/nokia/heart/bluetooth
 
 TARGET_LDPRELOAD += mtk_symbols.so
 
 # CWM
-TARGET_RECOVERY_FSTAB := device/Infinix/X556/rootdir/recovery.fstab
+TARGET_RECOVERY_FSTAB := device/nokia/heart/rootdir/recovery.fstab
 BOARD_HAS_NO_SELECT_BUTTON := true
 
 # TWRP stuff
@@ -197,27 +168,15 @@ TW_HAS_DOWNLOAD_MODE := true
 TW_EXCLUDE_SUPERSU := true
 TW_USE_TOOLBOX := true
 
-TARGET_SYSTEM_PROP := device/Infinix/X556/system.prop
-TARGET_SPECIFIC_HEADER_PATH := device/Infinix/X556/include
+TARGET_SYSTEM_PROP := device/nokia/heart/system.prop
+TARGET_SPECIFIC_HEADER_PATH := device/nokia/heart/include
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
 
-ifneq ($(FORCE_32_BIT),yes)
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += ro.zygote=zygote32
-else
 PRODUCT_COPY_FILES += system/core/rootdir/init.zygote64_32.rc:root/init.zygote64_32.rc
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += ro.zygote=zygote64_32
-endif
 
 BOARD_SEPOLICY_DIRS := \
-       device/Infinix/X556/sepolicy
+       device/nokia/heart/sepolicy
 
 # Seccomp filter
-BOARD_SECCOMP_POLICY += device/Infinix/X556/seccomp
-
-#add for fp
-FINGERPRINT_GOODIX_SUPPORT_GF368M = yes
-
-#add for fp
-ifeq ($(strip $(FINGERPRINT_GOODIX_SUPPORT_GF368M)), yes)
-BOARD_SEPOLICY_DIRS += device/Infinix/X556/sepolicy/fingerprint_goodix
-endif
+BOARD_SECCOMP_POLICY += device/nokia/heart/seccomp

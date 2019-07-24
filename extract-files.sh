@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export DEVICE=X556
-export VENDOR=Infinix
+export DEVICE=heart
+export VENDOR=nokia
 
 if [ $# -eq 0 ]; then
   SRC=adb

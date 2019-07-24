@@ -2,13 +2,13 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-LOCAL_PATH := device/Infinix/X556
+LOCAL_PATH := device/nokia/heart
 
-$(call inherit-product-if-exists, vendor/Infinix/X556/X556-vendor.mk)
+$(call inherit-product-if-exists, vendor/nokia/heart/heart-vendor.mk)
 
-DEVICE_PACKAGE_OVERLAYS += device/Infinix/X556/overlay
-PRODUCT_PACKAGE_OVERLAYS += device/Infinix/X556/overlay 
-# enable this to be able overlay a default wallpaper
+# Overlays
+DEVICE_PACKAGE_OVERLAYS += device/nokia/heart/overlay
+PRODUCT_PACKAGE_OVERLAYS += device/nokia/heart/overlay 
 
 # Dalvik/HWUI
 $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
@@ -20,9 +20,8 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_AAPT_CONFIG := normal xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
-PRODUCT_DEFAULT_LANGUAGE := fr
-PRODUCT_DEFAULT_REGION   := MA
-
+PRODUCT_DEFAULT_LANGUAGE := en
+PRODUCT_DEFAULT_REGION   := IN
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -69,7 +68,6 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:/system/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:/system/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:/system/etc/usb_audio_policy_configuration.xml
-    
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
@@ -175,14 +173,3 @@ PRODUCT_SYSTEM_SERVER_JARS += com.cyanogenmod.keyhandler
 
 # Never dexopt the keyhandler
 $(call add-product-dex-preopt-module-config,com.cyanogenmod.keyhandler,disable)
-
-# Add for FP
-ifeq ($(strip $(FINGERPRINT_GOODIX_SUPPORT_GF368M)), yes)
-PRODUCT_COPY_FILES += \
-	vendor/Infinix/X556/fingerprint/goodix/GX368/x64/fingerprint.default.so:system/lib64/hw/fingerprint.default.so \
-	vendor/Infinix/X556/fingerprint/goodix/GX368/x64/gxfingerprint.default.so:system/lib64/hw/gxfingerprint.default.so \
-	vendor/Infinix/X556/fingerprint/goodix/GX368/x64/libfp_client.so:system/lib64/libfp_client.so \
-	vendor/Infinix/X556/fingerprint/goodix/GX368/x64/libfpservice.so:system/lib64/libfpservice.so \
-	vendor/Infinix/X556/fingerprint/goodix/GX368/x64/libalgoandroid.so:system/lib64/libalgoandroid.so \
-	vendor/Infinix/X556/fingerprint/goodix/GX368/x64/gx_fpd:system/bin/gx_fpd
-endif

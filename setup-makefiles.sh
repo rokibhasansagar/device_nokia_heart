@@ -1,7 +1,7 @@
 #!/bin/bash
 
-DEVICE=X556
-VENDOR=Infinix
+DEVICE=heart
+VENDOR=nokia
 
 OUTDIR=vendor/$VENDOR/$DEVICE
 MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk
