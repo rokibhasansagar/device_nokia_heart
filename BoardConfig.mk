@@ -1,7 +1,7 @@
-DEVICE_FOLDER := device/lenovo/a7010a48
+DEVICE_FOLDER := device/nokia/heart
 
 # OTA assert
-TARGET_OTA_ASSERT_DEVICE := A7010a48,a7010a48,k5fpr
+TARGET_OTA_ASSERT_DEVICE := Heart,Heart,TA-1032
 
 # Architecture
 TARGET_ARCH := arm64
@@ -99,7 +99,7 @@ TW_THEME := portrait_hdpi
 TWRP_NEW_THEME := true
 TW_MAX_BRIGHTNESS := 255
 TW_DEFAULT_BRIGHTNESS := 75
-TW_DEFAULT_LANGUAGE := ru
+TW_DEFAULT_LANGUAGE := en
 TW_DEFAULT_EXTERNAL_STORAGE := true
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_CUSTOM_BATTERY_PATH := /sys/devices/platform/battery/power_supply/battery
