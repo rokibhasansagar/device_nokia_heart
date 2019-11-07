@@ -1,4 +1,5 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
+$(call inherit-product, vendor/pb/config/common.mk)
 
 PRODUCT_COPY_FILES := \
     device/nokia/heart/prebuilt/Image.gz-dtb:kernel \
