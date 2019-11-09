@@ -1,3 +1,4 @@
+LOCAL_DIR := device/nokia/heart
 DEVICE_FOLDER := device/nokia/heart
 
 # OTA assert
