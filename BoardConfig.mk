@@ -1,5 +1,3 @@
-LOCAL_PATH := $(call my-dir)
-
 # OTA assert
 TARGET_OTA_ASSERT_DEVICE := heart,Heart,TA-1032
 
