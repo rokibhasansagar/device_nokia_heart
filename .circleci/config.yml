@@ -49,6 +49,9 @@ jobs:
             source build/envsetup.sh
             lunch omni_${CODENAME}-userdebug
             make -j16 recoveryimage
+    branches:
+      only:
+        - rokibhasansagar-patch-1
 workflows:
   version: 2
   build_and_test:
