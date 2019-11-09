@@ -26,6 +26,7 @@ jobs:
             wget -q --show-progress https://github.com/rokibhasansagar/twrp_compressed_sources/releases/download/untagged-f1a30a0c1ef6cf34f386/PitchBlackRecoveryProject-master-norepo-20191105.tar.xz -O pitchblack.tar.xz
             tar -xJf pitchblack.tar.xz --directory work/ && rm pitchblack.tar.xz
             cd work/
+            cd build && git pull && cd -
             echo "Get the Device Tree on place"
             git clone https://github.com/rokibhasansagar/device_nokia_heart -b rokibhasansagar-patch-1 device/${VENDOR}/${CODENAME}
             rm -rf bootable/recovery && git clone -q https://github.com/PitchBlackRecoveryProject/android_bootable_recovery -b ${PBRP_BRANCH} --single-branch bootable/recovery
