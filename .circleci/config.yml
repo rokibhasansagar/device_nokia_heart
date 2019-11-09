@@ -10,7 +10,7 @@ jobs:
       VERSION: '2.9.0'
       VENDOR: 'nokia'
       CODENAME: 'heart'
-      BUILD_LUNCH: 'omni_heart-eng'
+      BUILD_LUNCH: 'omni_heart-userdebug'
       TEST_BUILD: 'true'
     working_directory: /home/builder/pitchblack
     steps:
