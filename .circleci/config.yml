@@ -23,12 +23,12 @@ jobs:
             git config --global user.name $GitHubName
             git config --global color.ui true
             mkdir $(pwd)/work
-            wget -q --show-progress https://github.com/rokibhasansagar/twrp_compressed_sources/releases/download/untagged-f1a30a0c1ef6cf34f386/PitchBlackRecoveryProject-master-norepo-20191105.tar.xz -O pitchblack.tar.xz
+            wget -q --show-progress https://github.com/rokibhasansagar/twrp_compressed_sources/releases/download/untagged-f1a30a0c1ef6cf34f386/PitchBlackRecoveryProject-master-norepo-20191109.tar.xz -O pitchblack.tar.xz
             tar -xJf pitchblack.tar.xz --directory work/ && rm pitchblack.tar.xz
             cd work/
-            rm -rf build && git clone -q https://github.com/PitchBlackRecoveryProject/android_build -b android-6.0 --single-branch build
+            # rm -rf build && git clone -q https://github.com/PitchBlackRecoveryProject/android_build -b android-6.0 --single-branch build
             echo "Get the Device Tree on place"
-            git clone https://github.com/rokibhasansagar/device_nokia_heart -b rokibhasansagar-patch-1 device/${VENDOR}/${CODENAME}
+            git clone https://github.com/rokibhasansagar/device_nokia_heart -b rokibhasansagar-patch-1 --single-branch device/${VENDOR}/${CODENAME}
             rm -rf bootable/recovery && git clone -q https://github.com/PitchBlackRecoveryProject/android_bootable_recovery -b ${PBRP_BRANCH} --single-branch bootable/recovery
             rm -rf vendor/pb && git clone -q https://github.com/PitchBlackRecoveryProject/vendor_pb -b pb --single-branch vendor/pb
             git clone -q https://github.com/PitchBlackRecoveryProject/external_magisk-prebuilt --single-branch external/magisk-prebuilt
@@ -41,7 +41,7 @@ jobs:
             EOF
             echo "Manifests hack" && mkdir -p .repo/manifests
             wget -q https://github.com/PhantomZone54/PitchBlack-Manifest/raw/master/default.xml -P .repo/manifests/
-            ls -la .repo/
+            ls -la .repo/*
             echo "Total size of files with git histories is -" && du -sh .
             ( find . -type d -name ".git" && find . -name ".gitignore" ) | xargs rm -rf
             echo "After deleting git junks, total size is -" && du -sh .
