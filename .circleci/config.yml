@@ -5,7 +5,7 @@ jobs:
       # new all-in-one docker image
       - image: fr3akyphantom/pitchblack-builder:latest
     environment:
-      MANIFEST_BRANCH: 'twrp-6.0'
+      # MANIFEST_BRANCH: 'twrp-6.0'
       PBRP_BRANCH: 'mtk'
       VERSION: '2.9.0'
       VENDOR: 'Nokia'
@@ -22,13 +22,36 @@ jobs:
             git config --global user.email $GitHubMail
             git config --global user.name $GitHubName
             git config --global color.ui true
-            wget -q https://raw.githubusercontent.com/PitchBlackRecoveryProject/vendor_pb/pb/build.sh
-            # device/qcom/common from TeamWin:android-6.0 is already there
-            # git clone https://github.com/CyanogenMod/android_device_qcom_common device/qcom/common -b cm-13.0
+            mkdir $(pwd)/work
+            wget -q --show-progress https://github.com/rokibhasansagar/twrp_compressed_sources/releases/download/untagged-f1a30a0c1ef6cf34f386/PitchBlackRecoveryProject-master-norepo-20191105.tar.xz -O pitchblack.tar.xz
+            tar -xJf pitchblack.tar.xz --directory work/ && rm pitchblack.tar.xz
+            cd work/
+            echo "Get the Device Tree on place"
+            git clone https://github.com/rokibhasansagar/device_nokia_heart -b rokibhasansagar-patch-1 device/${VENDOR}/${CODENAME}
+            rm -rf bootable/recovery && git clone -q https://github.com/PitchBlackRecoveryProject/android_bootable_recovery -b ${PBRP_BRANCH} --single-branch bootable/recovery
+            rm -rf vendor/pb && git clone -q https://github.com/PitchBlackRecoveryProject/vendor_pb -b pb --single-branch vendor/pb
+            git clone -q https://github.com/PitchBlackRecoveryProject/external_magisk-prebuilt --single-branch external/magisk-prebuilt
             rm -rf external/f2fs-tools && git clone https://github.com/omnirom/android_external_f2fs-tools external/f2fs-tools -b android-7.1
-            source build.sh ${SFUserName} ${SFPassword} ${GITHUB_TOKEN}
+            rm -rf device/generic/goldfish && rm -rf device/qcom && rm -rf hardware/qcom
+            echo "Local manifests hack" && mkdir -p .repo/local_manifests && cat <<EOF > .repo/local_manifests/roomservice.xml
+            <?xml version="1.0" encoding="UTF-8"?>
+            <manifest>
+            </manifest>
+            EOF
+            echo "Manifests hack" && mkdir -p .repo/manifests
+            wget -q https://github.com/PhantomZone54/PitchBlack-Manifest/raw/master/default.xml -P .repo/manifests/
+            ls -la .repo/
+            echo "Total size of files with git histories is -" && du -sh .
+            ( find . -type d -name ".git" && find . -name ".gitignore" ) | xargs rm -rf
+            echo "After deleting git junks, total size is -" && du -sh .
+            echo "Start the Build Process"
+            export ALLOW_MISSING_DEPENDENCIES=true
+            source build/envsetup.sh
+            lunch omni_${CODENAME}-userdebug
+            make -j16 recoveryimage
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
+      - build:
+          context: personal-envs
