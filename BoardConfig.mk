@@ -1,8 +1,7 @@
-LOCAL_DIR := device/nokia/heart
-DEVICE_FOLDER := device/nokia/heart
+LOCAL_PATH := $(call my-dir)
 
 # OTA assert
-TARGET_OTA_ASSERT_DEVICE := Heart,Heart,TA-1032
+TARGET_OTA_ASSERT_DEVICE := heart,Heart,TA-1032
 
 # Architecture
 TARGET_ARCH := arm64
@@ -45,7 +44,6 @@ TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 
 # Kernel
 BOARD_NAME := SevenMaxs
-BOARD_KERNEL_BASE := 0x40080000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x40078000
@@ -55,10 +53,10 @@ BOARD_TAGS_OFFSET := 0x0df88000
 BOARD_SECOND_OFFSET := 0x00e88000
 BOARD_MKBOOTIMG_ARGS := --board $(BOARD_NAME) --base $(BOARD_KERNEL_BASE) --pagesize $(BOARD_KERNEL_PAGESIZE) --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET) --second_offset $(BOARD_SECOND_OFFSET)
 
-TARGET_PREBUILT_KERNEL := $(DEVICE_FOLDER)/prebuilt/Image.gz-dtb
-TARGET_PREBUILT_RECOVERY_KERNEL := $(DEVICE_FOLDER)/prebuilt/Image.gz-dtb
-TARGET_RECOVERY_INITRC := $(DEVICE_FOLDER)/recovery/root/init.rc
-TARGET_RECOVERY_FSTAB := $(DEVICE_FOLDER)/recovery/root/etc/recovery.fstab
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/Image.gz-dtb
+TARGET_PREBUILT_RECOVERY_KERNEL := $(LOCAL_PATH)/prebuilt/Image.gz-dtb
+TARGET_RECOVERY_INITRC := $(LOCAL_PATH)/recovery/root/init.rc
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/root/etc/recovery.fstab
 
 # Partitions informations
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
@@ -83,7 +81,7 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/virtual/android_usb/android0/f_m
 BOARD_SUPPRESS_SECURE_ERASE := true
 
 # SELinux
-BOARD_SEPOLICY_DIRS += $(DEVICE_FOLDER)/sepolicy
+BOARD_SEPOLICY_DIRS += $(LOCAL_PATH)/sepolicy
 
 # Graphics
 BOARD_USE_FRAMEBUFFER_ALPHA_CHANNEL := true

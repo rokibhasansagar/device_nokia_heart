@@ -1,2 +1,4 @@
+LOCAL_PATH := $(call my-dir)
+
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_heart.mk
+    $(LOCAL_PATH)/omni_heart.mk
