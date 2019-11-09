@@ -1,3 +1,5 @@
+LOCAL_PATH := device/Nokia/heart
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 $(call inherit-product, vendor/pb/config/common.mk)
 
