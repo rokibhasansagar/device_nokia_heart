@@ -1,6 +1,6 @@
 ifneq ($(filter heart,$(TARGET_DEVICE)),)
 
-LOCAL_PATH := $(call my-dir)
+LOCAL_PATH := device/Nokia/heart
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
